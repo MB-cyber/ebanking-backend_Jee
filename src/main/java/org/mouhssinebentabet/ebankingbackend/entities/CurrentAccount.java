@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorColumn(name = "CA")
+@DiscriminatorValue("CA")
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class CurrentAccount extends  BankAccount{
