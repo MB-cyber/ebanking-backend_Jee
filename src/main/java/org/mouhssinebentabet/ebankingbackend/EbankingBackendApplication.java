@@ -13,12 +13,14 @@ import org.mouhssinebentabet.ebankingbackend.exceptions.CustomerNotFoundExceptio
 import org.mouhssinebentabet.ebankingbackend.repositories.AccountOperationRepository;
 import org.mouhssinebentabet.ebankingbackend.repositories.BankAccountRepository;
 import org.mouhssinebentabet.ebankingbackend.repositories.CustomerRepository;
+
 import org.mouhssinebentabet.ebankingbackend.services.BankAccountService;
 import org.mouhssinebentabet.ebankingbackend.services.BankService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 
 import java.util.Date;
 import java.util.List;
@@ -36,7 +38,7 @@ public class EbankingBackendApplication {
    CommandLineRunner commandLineRunner(BankAccountService bankAccountService){
         return args -> {
            // bankService.consulter();
-            Stream.of("hassan","Yassine","bentabet").forEach(name->{
+            Stream.of("hassan","Yassine","bentabet","test").forEach(name->{
                 CustomerDTO customer =new CustomerDTO();
                 customer.setName(name);
                 customer.setEmail(name+"@gmail.com");
@@ -124,4 +126,6 @@ public class EbankingBackendApplication {
             };
 
     }
+
+
 }

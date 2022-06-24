@@ -1,6 +1,7 @@
 package org.mouhssinebentabet.ebankingbackend.repositories;
 
 import org.mouhssinebentabet.ebankingbackend.entities.AccountOperation;
+import org.mouhssinebentabet.ebankingbackend.entities.BankAccount;
 import org.mouhssinebentabet.ebankingbackend.entities.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

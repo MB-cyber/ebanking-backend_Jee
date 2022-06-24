@@ -111,6 +111,7 @@ public class BankAccountServiceImp implements BankAccountService{
     public BankAccountDTO getBankAccount(String accountid) throws BankAccountNotFoundException {
         BankAccount bankAccount=bankAccountRepository.findById(accountid)
                 .orElseThrow(()->new BankAccountNotFoundException("BankAccount not found"));
+
     if (bankAccount instanceof SavingAccount  ){
         SavingAccount savingAccount= (SavingAccount) bankAccount;
         return dtomapper.fromSavingBankAccount(savingAccount);
@@ -178,6 +179,23 @@ public class BankAccountServiceImp implements BankAccountService{
         }).collect(Collectors.toList());
         return bankAccountDTOS;
     }
+
+    @Override
+    public List<BankAccountDTO> bankAccountListById(String accountId)  {
+        List<BankAccount> bankAccounts= bankAccountRepository.findBankAccountsByCustomer_Id(Long.valueOf(accountId));
+        List<BankAccountDTO> bankAccountDTOS = bankAccounts.stream().map(bankAccount -> {
+            if (bankAccount instanceof SavingAccount) {
+                SavingAccount savingAccount = (SavingAccount) bankAccount;
+                return dtomapper.fromSavingBankAccount(savingAccount);
+            } else {
+                CurrentAccount currentAccount = (CurrentAccount) bankAccount;
+                return dtomapper.fromCurrentBankAccount(currentAccount);
+
+            }
+        }).collect(Collectors.toList());
+        return bankAccountDTOS;
+    }
+
     @Override
     public CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId)
@@ -198,6 +216,7 @@ public class BankAccountServiceImp implements BankAccountService{
     }
     @Override
     public List<AccountOperationDTO> accountHistory(String accountId){
+
         List<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId);
         return accountOperations.stream().map(op->dtomapper.fromAccountOperation(op)).collect(Collectors.toList());
     }
